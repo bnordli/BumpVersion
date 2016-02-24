@@ -1,0 +1,38 @@
+bin
+obj
+*.suo
+*.ldf
+*.LDF
+*.user
+*.version
+_ReSharper.*
+
+# Ignore NuGet Packages
+*.nupkg
+# Ignore the packages folder
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config*.pidb
+
+*.userprefs
+*.pdb
+*.idb
+*.xap
+*.fbl7
+*.fb7lck
+*.fbpinf
+*.test-cache
+*.ncrunch*
+applicationhost.config
+
+
+# OS generated files #
+######################
+
+.DS_Store
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
