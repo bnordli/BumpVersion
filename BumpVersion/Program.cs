@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace BumpVersion
 {
     public class Program
     {
+        private static string InformationalVersion
+            => typeof (Program).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+
         private static void Main(string[] args)
         {
             try
@@ -72,6 +77,7 @@ namespace BumpVersion
 
         private static void Usage()
         {
+            Console.WriteLine("BumpVersion: version " + InformationalVersion);
             Console.WriteLine(
                 "Usage: BumpVersion [ " +
                 string.Join(" | ", Enum.GetNames(typeof (VersionType)).Skip(1)) + " version ]");
