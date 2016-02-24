@@ -9,27 +9,14 @@ namespace BumpVersion
     {
         public const string VersionFile = "version.txt";
 
-        public void Run(Version version, bool prune)
+        public void Run(Version version)
         {
-            var previousVersions = VersionReader.PreviousVersions();
-            if (prune)
-            {
-                previousVersions = PruneOldRevisions(previousVersions);
-            }
-
             var nextVersion = new VersionInfo(version);
-            SaveVersions(previousVersions.Concat(new[] { nextVersion }));
+            SaveVersions(VersionReader.PreviousVersions().Concat(new[] { nextVersion }));
             AssemblyInfoUpdater.UpdateAll(nextVersion.VersionString());
         }
 
-        private static IEnumerable<VersionInfo> PruneOldRevisions(IEnumerable<VersionInfo> previousVersions)
-        {
-            return previousVersions.Where(v => v.Version.Revision == 0);
-        }
-
         private static void SaveVersions(IEnumerable<VersionInfo> version)
-        {
-            File.WriteAllLines(VersionFile, version.Select(v => v.ToString()));
-        }
+            => File.WriteAllLines(VersionFile, version.Select(v => v.ToString()));
     }
 }

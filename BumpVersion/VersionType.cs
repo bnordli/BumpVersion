@@ -6,7 +6,6 @@
         Major,
         Minor,
         Build,
-        Revision,
         Set,
     }
 }

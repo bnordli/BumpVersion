@@ -14,9 +14,9 @@ namespace BumpVersion
             Version = version;
         }
 
-        public Version Version { get; private set; }
+        public Version Version { get; }
 
-        public DateTime Timestamp { get; private set; }
+        public DateTime Timestamp { get; }
 
         public static VersionInfo Parse(string line)
         {
@@ -36,19 +36,13 @@ namespace BumpVersion
             }
 
             throw new MessageException(
-                string.Format(
-                    "Could not parse version line. Expected 'Major.Minor.Revision.Build Timestamp', but got '{0}'",
-                    line));
+                $"Could not parse version line. Expected 'Major.Minor.Revision Timestamp', but got '{line}'");
         }
 
-        public string VersionString()
-        {
-            return Version.ToString(4);
-        }
+        public string VersionString() => Version.ToString(3);
 
-        public override string ToString()
-        {
-            return string.Format("{0} {1}", VersionString(), Timestamp.ToString("s"));
-        }
+        public override string ToString() => $"{VersionString()} {Timestamp.ToString("s")}";
+
+        public static VersionInfo Default => new VersionInfo(new Version(0, 0, 0));
     }
 }

@@ -11,7 +11,7 @@ namespace BumpVersion
             {
                 if (args.Length == 0)
                 {
-                    Main(new[] { VersionType.Revision.ToString() });
+                    Main(new[] { VersionType.Build.ToString() });
                 }
                 else if (args.Length == 1)
                 {
@@ -42,7 +42,7 @@ namespace BumpVersion
             else
             {
                 var nextVersion = DetermineVersion.Next(versionType);
-                new VersionBumper().Run(nextVersion, versionType != VersionType.Revision);
+                new VersionBumper().Run(nextVersion);
                 Console.WriteLine("Version updated to version {0}", nextVersion);
             }
         }
@@ -57,7 +57,7 @@ namespace BumpVersion
             else
             {
                 var nextVersion = DetermineVersion.Set(args[1]);
-                new VersionBumper().Run(nextVersion, true);
+                new VersionBumper().Run(nextVersion);
                 Console.WriteLine("Version manually set to version {0}", nextVersion);
             }
         }
