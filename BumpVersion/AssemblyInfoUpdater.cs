@@ -31,7 +31,9 @@ namespace BumpVersion
 
         private static IEnumerable<string> AddInformationalIfNotPresent(ICollection<string> lines, string version)
         {
-            if (lines.Any(l => l.StartsWith(AssemblyInformationalVersionSearch)))
+            // Add AssemblyInformationalVersion to files containing AssemblyVersion but not AssemblyInformationalVersion
+            if (!lines.Any(l => l.StartsWith(AssemblyVersionSearch)) ||
+                lines.Any(l => l.StartsWith(AssemblyInformationalVersionSearch)))
             {
                 return lines;
             }
